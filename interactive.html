@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contoh Web Interaktif</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+      text-align: center;
+      padding: 50px;
+      transition: background-color 0.5s ease;
+    }
+
+    h1 {
+      color: #0078d7;
+    }
+
+    button {
+      background-color: #0078d7;
+      color: white;
+      border: none;
+      padding: 15px 25px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s, background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #005fa3;
+      transform: scale(1.1);
+    }
+
+    .message {
+      margin-top: 30px;
+      font-size: 20px;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    .show {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <h1>Selamat Datang di Web Interaktif!</h1>
+  <p>Klik tombol di bawah untuk melihat efek interaktif.</p>
+  <button id="changeColorBtn">Ubah Warna & Tampilkan Pesan</button>
+
+  <div id="message" class="message">🎉 Halo, ini efek interaktif HTML5! 🎉</div>
+
+  <script>
+    const button = document.getElementById("changeColorBtn");
+    const message = document.getElementById("message");
+
+    button.addEventListener("click", () => {
+      // Ganti warna background secara acak
+      const colors = ["#f4f4f9", "#ffb6b9", "#cdeac0", "#a0c4ff", "#ffd6a5"];
+      const randomColor = colors[Math.floor(Math.random() * colors.length)];
+      document.body.style.backgroundColor = randomColor;
+
+      // Tampilkan pesan dengan animasi
+      message.classList.toggle("show");
+    });
+  </script>
+</body>
+</html>
