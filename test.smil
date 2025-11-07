@@ -8,7 +8,7 @@
 
     <body>
         <seq repeatCount="indefinite">
-        <text src="https://vercel-test-html-rouge.vercel.app/interactive2.html?v=1" region="main"/>
+        <text src="https://vercel-test-html-rouge.vercel.app/interactive.html?v=1" region="main"/>
         </seq>
     </body>
 </smil>
