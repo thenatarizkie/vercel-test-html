@@ -1,0 +1,13 @@
+<smil>
+<head>
+<layout>
+<root-layout width="1920" height="1080" backgroundColor="black"/>
+<region id="main" left="0" top="0" width="100%" height="100%" z-index="1" />
+</layout>
+</head>
+<body>
+<par dur="indefinite">
+<ref src="https://vercel-test-html-rouge.vercel.app/index.wgt" region="main" type="application/widget"/>
+</par>
+</body>
+</smil>
