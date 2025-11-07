@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contoh Web Interaktif</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f9;
+      color: #333;
+      display: grid;
+      place-items: center;
+      user-select: none;
+      -webkit-touch-callout: none;
+      -webkit-tap-highlight-color: transparent;
+      overflow: hidden; /* cegah scroll di player */
+      transition: background-color .5s ease;
+    }
+    .wrap {
+      text-align: center;
+      max-width: 900px;
+      padding: 32px;
+    }
+    h1 { color: #0078d7; margin: 0 0 12px; }
+    button {
+      background: #0078d7;
+      color: #fff;
+      border: 0;
+      padding: 14px 22px;
+      font-size: 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform .15s, background-color .25s;
+    }
+    button:hover { background: #005fa3; transform: scale(1.04); }
+    .message {
+      margin-top: 24px;
+      font-size: 20px;
+      opacity: 0;
+      transition: opacity 300ms ease;
+    }
+    .message.show { opacity: 1; }
+    /* indikator input */
+    .status {
+      margin-top: 18px;
+      font: 14px/1.4 monospace;
+      opacity: .8;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap" id="app" tabindex="0" aria-label="Area interaktif (klik di sini untuk fokus)">
+    <h1>Selamat Datang di Web Interaktif!</h1>
+    <p>Klik / tap tombol di bawah, atau tekan tombol panah/kosong untuk mengubah warna.</p>
+    <button id="changeColorBtn" type="button">Ubah Warna & Tampilkan Pesan</button>
+    <div id="message" class="message">🎉 Halo, ini efek interaktif HTML5! 🎉</div>
+    <div class="status" id="status">Menunggu interaksi…</div>
+  </div>
+
+  <script>
+    (function () {
+      const app = document.getElementById('app');
+      const button = document.getElementById('changeColorBtn');
+      const message = document.getElementById('message');
+      const status = document.getElementById('status');
+      const colors = ["#f4f4f9", "#ffb6b9", "#cdeac0", "#a0c4ff", "#ffd6a5", "#e0bbff"];
+
+      function setStatus(text) { status.textContent = text; }
+      function randomColor() { return colors[Math.floor(Math.random() * colors.length)]; }
+      function changeVisual() {
+        document.body.style.backgroundColor = randomColor();
+        message.classList.toggle("show");
+      }
+
+      // Fokuskan area agar event keyboard tertangkap
+      window.addEventListener('load', () => {
+        // delay kecil membantu beberapa webview memberi fokus
+        setTimeout(() => { app.focus({ preventScroll: true }); }, 50);
+      });
+
+      // Klik/tap pada tombol
+      button.addEventListener("click", () => {
+        changeVisual();
+        setStatus("Klik tombol terdeteksi");
+      });
+
+      // Klik/tap di area mana pun
+      document.addEventListener("pointerdown", (e) => {
+        // pointerdown menyatukan mouse, touch, pen
+        if (e.target !== button) {
+          changeVisual();
+          setStatus(`Pointer ${e.pointerType} di (${e.clientX}, ${e.clientY})`);
+        }
+      }, { passive: true });
+
+      // Keyboard
+      document.addEventListener("keydown", (e) => {
+        // contoh kontrol sederhana
+        if ([" ", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Enter"].includes(e.key)) {
+          e.preventDefault();
+          changeVisual();
+          setStatus(`Tombol '${e.key}' ditekan`);
+        } else {
+          setStatus(`Keyboard: '${e.key}'`);
+        }
+      });
+
+      // Mencegah zoom double-tap pada beberapa webview
+      let lastTouch = 0;
+      document.addEventListener('touchend', (e) => {
+        const now = Date.now();
+        if (now - lastTouch < 300) e.preventDefault();
+        lastTouch = now;
+      }, { passive: false });
+    })();
+  </script>
+</body>
+</html>
