@@ -11,7 +11,7 @@
     <seq repeatCount="indefinite">
       <!-- Muat halaman HTML sebagai media ref -->
       <ref
-        src="https://vercel-test-html-rouge.vercel.app/testint1.html?v=2"
+        src="https://vercel-test-html-rouge.vercel.app/testint2.html?v=2"
         type="text/html"
         region="main"
         dur="indefinite"/>
