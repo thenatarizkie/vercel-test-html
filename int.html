@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Input Detection Demo</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #0f111a;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .message {
+        font-size: 32px;
+        font-weight: bold;
+        opacity: 0;
+        transition: transform 0.4s ease, opacity 0.4s ease;
+        position: absolute;
+    }
+
+    .show {
+        opacity: 1;
+        transform: scale(1.5);
+    }
+</style>
+</head>
+<body>
+
+<div id="display" class="message"></div>
+
+<script>
+    const display = document.getElementById("display");
+
+    function showMessage(text) {
+        display.textContent = text;
+        display.classList.add("show");
+
+        // Hide after animation
+        setTimeout(() => {
+            display.classList.remove("show");
+        }, 500);
+    }
+
+    document.addEventListener("click", () => showMessage("Mouse Click Detected!"));
+    document.addEventListener("keydown", (e) => showMessage("Key Pressed: " + e.key));
+</script>
+
+</body>
+</html>
